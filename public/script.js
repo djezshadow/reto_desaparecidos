@@ -63,8 +63,8 @@ async function loadData() {
     const response = await fetch(apiUrl);
     const data = await response.json();
     if (data.scores) {
-        for (let user in scores) {
-            for (let category in scores[user]) {
+        for (let user in data.scores) {
+            for (let category in data.scores[user]) {
                 const element = document.getElementById(`${user}-${category}`);
                 element.innerText = `${scores[user][category]} pts`;
             }
