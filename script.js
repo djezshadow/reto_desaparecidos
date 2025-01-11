@@ -2,7 +2,7 @@
 let history = [];
 
 // URL de la API para guardar y cargar datos
-const apiUrl = '/api/scores.js';
+const apiUrl = '/pages/api/scores.js';
 
 function updateScore(user, category, delta) {
     const element = document.getElementById(`${user}-${category}`);
@@ -48,7 +48,7 @@ async function saveData() {
             llamada: parseInt(document.getElementById('eze-llamada').innerText.split(' ')[0])
         }
     };
-    const response = await fetch('/api/scores.js', {
+    const response = await fetch('/pages/api/scores.js', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
