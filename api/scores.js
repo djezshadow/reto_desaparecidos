@@ -1,34 +1,29 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = 'https://jruqvsmonxwttssqocje.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpydXF2c21vbnh3dHRzc3FvY2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY1NTUyMjYsImV4cCI6MjA1MjEzMTIyNn0.rysDT7oUSm3uI0-anwvhWGdx_c2l1i26eqdGjy582x0';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 module.exports = async (req, res) => {
     if (req.method === 'GET') {
         const { data, error } = await supabase.from('scores').select('*');
         if (error) {
-            res.status(500).json({ error: 'Error fetching scores' });
-            return;
+            return res.status(500).json({ error: 'Error fetching data', details: error });
         }
-        res.status(200).json({ scores: data });
+        return res.status(200).json(data);
     } else if (req.method === 'POST') {
-        const { scores } = req.body;
-        const updates = Object.keys(scores).map(user => {
-            return Object.entries(scores[user]).map(([category, score]) => ({
-                user,
-                category,
-                score,
-            }));
-        }).flat();
+        const { scores, history } = req.body;
 
-        const { error } = await supabase.from('scores').upsert(updates);
+        // Inserta o actualiza datos en la tabla 'scores'
+        const { error } = await supabase.from('scores').upsert({
+            id: 1, // Asegúrate de usar un ID único o genera uno
+            scores,
+            history
+        });
+
         if (error) {
-            res.status(500).json({ error: 'Error saving scores' });
-            return;
+            return res.status(500).json({ error: 'Error saving data', details: error });
         }
-        res.status(200).json({ message: 'Scores saved successfully' });
+        return res.status(200).json({ message: 'Data saved successfully' });
     } else {
-        res.status(405).json({ error: 'Method not allowed' });
+        return res.status(405).json({ error: 'Method not allowed' });
     }
 };
