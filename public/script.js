@@ -70,4 +70,5 @@ async function loadData() {
                 element.innerText = `${scores[user][category]} pts`;
             }
         }
-    }};
+    }
+};

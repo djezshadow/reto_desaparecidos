@@ -1,25 +1,33 @@
-const fs = require('fs');
-const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
 
-const dataFilePath = path.join(__dirname, '/data.json');
+const supabaseUrl = 'https://hlljopsfuyhxfuhwjlux.supabase.co';
+const supabaseKey = 'tJqGoNFHLgCHoEAGf5o2ufBnljVoWTkHy7n4ZYruBpndvmKP7DzgMUmX2DN5AiRQnmcgGbBPovhwLrT+n2vIOA==';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     if (req.method === 'GET') {
-        fs.readFile(dataFilePath, 'utf8', (err, data) => {
-            if (err) {
-                res.status(500).json({ error: 'Error reading data' });
-                return;
-            }
-            res.status(200).json(JSON.parse(data));
-        });
+        const { data, error } = await supabase.from('scores').select('*');
+        if (error) {
+            res.status(500).json({ error: 'Error fetching scores' });
+            return;
+        }
+        res.status(200).json({ scores: data });
     } else if (req.method === 'POST') {
-        fs.writeFile(dataFilePath, JSON.stringify(req.body), (err) => {
-            if (err) {
-                res.status(500).json({ error: 'Error writing data' });
-                return;
-            }
-            res.status(200).json({ message: 'Data saved successfully' });
-        });
+        const { scores } = req.body;
+        const updates = Object.keys(scores).map(user => {
+            return Object.entries(scores[user]).map(([category, score]) => ({
+                user,
+                category,
+                score,
+            }));
+        }).flat();
+
+        const { error } = await supabase.from('scores').upsert(updates);
+        if (error) {
+            res.status(500).json({ error: 'Error saving scores' });
+            return;
+        }
+        res.status(200).json({ message: 'Scores saved successfully' });
     } else {
         res.status(405).json({ error: 'Method not allowed' });
     }
