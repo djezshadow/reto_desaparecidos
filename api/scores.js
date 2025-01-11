@@ -1,12 +1,11 @@
-const data = await fetch('https://jruqvsmonxwttssqocje.supabase.co/rest/v1/countries', {
-    headers: {
-      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpydXF2c21vbnh3dHRzc3FvY2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY1NTUyMjYsImV4cCI6MjA1MjEzMTIyNn0.rysDT7oUSm3uI0-anwvhWGdx_c2l1i26eqdGjy582x0'
-    }
-  })
-    .then(res => res.json())
-    .catch(error => {
-      // Handle error
-    });
+import { createClient } from '@supabase/supabase-js';
+
+// Asegúrate de que estás usando las variables de entorno
+const supabase = createClient(
+    process.env.SUPABASE_URL, // URL de Supabase
+    process.env.SUPABASE_KEY  // Clave de API
+);
+
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
