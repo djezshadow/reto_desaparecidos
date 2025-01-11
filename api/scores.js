@@ -1,29 +1,31 @@
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
     if (req.method === 'GET') {
-        const { data, error } = await supabase.from('scores').select('*');
-        if (error) {
-            return res.status(500).json({ error: 'Error fetching data', details: error });
+        try {
+            const { data, error } = await supabase.from('scores').select('*');
+            if (error) throw error;
+            return res.status(200).json(data);
+        } catch (error) {
+            return res.status(500).json({ message: 'Error fetching data', error: error.message });
         }
-        return res.status(200).json(data);
     } else if (req.method === 'POST') {
         const { scores, history } = req.body;
 
-        // Inserta o actualiza datos en la tabla 'scores'
-        const { error } = await supabase.from('scores').upsert({
-            id: 1, // Asegúrate de usar un ID único o genera uno
-            scores,
-            history
-        });
+        try {
+            const { error } = await supabase.from('scores').upsert([
+                { scores, history }
+            ]);
 
-        if (error) {
-            return res.status(500).json({ error: 'Error saving data', details: error });
+            if (error) throw error;
+
+            return res.status(200).json({ message: 'Data saved successfully' });
+        } catch (error) {
+            return res.status(500).json({ message: 'Error saving data', error: error.message });
         }
-        return res.status(200).json({ message: 'Data saved successfully' });
     } else {
-        return res.status(405).json({ error: 'Method not allowed' });
+        return res.status(405).json({ message: 'Method Not Allowed' });
     }
-};
+}
