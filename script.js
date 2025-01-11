@@ -48,7 +48,7 @@ async function saveData() {
             llamada: parseInt(document.getElementById('eze-llamada').innerText.split(' ')[0])
         }
     };
-    const response = await fetch('/pages/api/scores.js', {
+    const response = await fetch('/api/scores.js', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
