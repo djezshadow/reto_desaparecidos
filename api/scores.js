@@ -1,10 +1,12 @@
-import { createClient } from '@supabase/supabase-js';
-
-// Asegúrate de que estas variables estén configuradas en el entorno de Vercel (SUPABASE_URL y SUPABASE_KEY)
-const supabase = createClient(
-  process.env.SUPABASE_URL, // Supabase URL
-  process.env.SUPABASE_KEY  // Supabase Key
-);
+const data = await fetch('https://jruqvsmonxwttssqocje.supabase.co/rest/v1/countries', {
+    headers: {
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpydXF2c21vbnh3dHRzc3FvY2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY1NTUyMjYsImV4cCI6MjA1MjEzMTIyNn0.rysDT7oUSm3uI0-anwvhWGdx_c2l1i26eqdGjy582x0'
+    }
+  })
+    .then(res => res.json())
+    .catch(error => {
+      // Handle error
+    });
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {

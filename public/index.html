@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Puntajes</title>
     <link rel="stylesheet" href="styles.css">
-
-    <script type="module">
-        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-      
-        const supabase = createClient('https://jruqvsmonxwttssqocje.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpydXF2c21vbnh3dHRzc3FvY2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY1NTUyMjYsImV4cCI6MjA1MjEzMTIyNn0.rysDT7oUSm3uI0-anwvhWGdx_c2l1i26eqdGjy582x0')
-      
-        const { data, error } = await supabase
-          .from('todos')
-          .select()
-      </script>
 </head>
 
 <body>
