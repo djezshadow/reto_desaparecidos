@@ -1,7 +1,7 @@
 {
     "scores": {
         "vicky": { "texto": 0, "stickers": 0, "llamada": 0 },
-        "eze": { "texto": 0, "stickers": 0, "llamada": 0 }
+        "eze": { "texto": 1, "stickers": 0, "llamada": 0 }
     },
     "history": []
 }
