@@ -2,8 +2,19 @@ import { createClient } from '@supabase/supabase-js';
 
 // Asegúrate de que estás usando las variables de entorno
 const supabase = createClient(
-    process.env.SUPABASE_URL, // URL de Supabase
-    process.env.SUPABASE_KEY  // Clave de API
+    process.env.POSTGRES_URL,
+    process.env.POSTGRES_PRISMA_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.POSTGRES_URL_NON_POOLING,
+    process.env.SUPABASE_JWT_SECRET,
+    process.env.POSTGRES_USER,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    process.env.POSTGRES_PASSWORD,
+    process.env.POSTGRES_DATABASE,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    process.env.POSTGRES_HOST,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    process.env.SUPABASE_URL
 );
 
 
