@@ -1,7 +1,7 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = 'https://hlljopsfuyhxfuhwjlux.supabase.co';
-const supabaseKey = 'tJqGoNFHLgCHoEAGf5o2ufBnljVoWTkHy7n4ZYruBpndvmKP7DzgMUmX2DN5AiRQnmcgGbBPovhwLrT+n2vIOA==';
+const supabaseUrl = 'https://jruqvsmonxwttssqocje.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpydXF2c21vbnh3dHRzc3FvY2plIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY1NTUyMjYsImV4cCI6MjA1MjEzMTIyNn0.rysDT7oUSm3uI0-anwvhWGdx_c2l1i26eqdGjy582x0';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 module.exports = async (req, res) => {
