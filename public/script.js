@@ -2,7 +2,7 @@
 let history = [];
 
 // URL de la API para guardar y cargar datos
-const apiUrl = '/api/scores.js';
+const apiUrl = '/api/scores';
 
 function updateScore(user, category, delta) {
     const element = document.getElementById(`${user}-${category}`);
