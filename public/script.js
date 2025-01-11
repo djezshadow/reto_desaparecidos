@@ -1,3 +1,4 @@
+/* script.js */
 let history = [];
 
 // URL de la API para guardar y cargar datos
